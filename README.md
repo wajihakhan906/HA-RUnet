@@ -8,12 +8,32 @@ A lightweight 3D U-Net for volumetric brain tumor segmentation on MRI (input 4 �
   blocks) is multiplied by a *soft mask* from an encoder–decoder branch, combined as (1 + M) · T.
 - **Squeeze-Excitation** after every decoder stage (and the bottleneck) re-weights channels using global context.
 
-![HA-RUnet architecture](Figures/architecture.png)
+![HA-RUnet architecture](Figures/paper/architecture.png)
 
 ## Highlights
 - Dice **0.867 / 0.813 / 0.787** (Whole Tumor / Tumor Core / Enhancing Tumor) on BraTS-2020
 - Sensitivity **0.93 / 0.88 / 0.83**
 - Outperforms ResUNet and AResUNet with fewer parameters
+
+## Model Components
+| Residual block | Squeeze-Excitation module |
+|---|---|
+| ![Residual block](Figures/paper/residual_block.png) | ![SE module](Figures/paper/squeeze_excitation.png) |
+
+**Attention module**: (a) trunk branch × soft-mask branch with attention residual learning, (b) soft-mask encoder–decoder:
+
+![Attention module](Figures/paper/attention_module.png)
+
+## Qualitative Results
+Segmentations on BraTS-2020 (FLAIR, T1, T2, T1ce, ground truth, prediction) for the ablation models:
+(a) Residual U-Net, (b) + attention modules, (c) the proposed HA-RUnet (+ attention + SE):
+
+![Qualitative segmentation](Figures/paper/qualitative_segmentation.png)
+
+*Figures reproduced from Khan et al., "A Hybrid Attention-Based Residual Unet for Semantic Segmentation of Brain
+Tumor", Computers, Materials & Continua 76(1), 2023, published open access under the
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license. `Figures/architecture.png` is a diagram generated
+from this repository's code (`Code/plot_architecture.py`).*
 
 ## Repository Structure
 ```
@@ -28,7 +48,8 @@ HA-RUnet/
 │   ├── plot_history.py       # training curves from history.json
 │   └── requirements.txt
 ├── Dataset/                  # BraTS-2020 download instructions
-├── Figures/                  # architecture diagram, training curves
+├── Figures/                  # code-generated architecture diagram, training curves
+│   └── paper/                # figures from the published article (CC BY 4.0)
 ├── Results/                  # published metrics, reproduced runs
 ├── LICENSE
 └── README.md
