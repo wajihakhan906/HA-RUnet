@@ -10,6 +10,11 @@ Hybrid attention residual 3D U-Net for volumetric brain tumor segmentation on Br
 ## Tech Stack
 PyTorch · 3D U-Net · Squeeze-and-Excitation · Attention gates
 
+## Publication
+**A Hybrid Attention-Based Residual Unet for Semantic Segmentation of Brain Tumor**
+*Computers, Materials & Continua (CMC)*, vol. 76, no. 1, 2023.
+[Paper](https://www.techscience.com/cmc/v76n1/53090) · [ScienceDirect](https://www.sciencedirect.com/org/science/article/pii/S1546221823002084)
+
 ## Status
 🚧 Code, notebooks and results are being cleaned up for public release.
 
