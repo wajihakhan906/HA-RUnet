@@ -13,6 +13,10 @@ As reported in *A Hybrid Attention-Based Residual Unet for Semantic Segmentation
 
 HA-RUnet outperformed the ResUNet and AResUNet baselines while using fewer parameters.
 
+![Dice and Hausdorff95 box plots](../Figures/paper/dice_hausdorff_boxplots.png)
+
+*Figure from the published article (CC BY 4.0).*
+
 ## Reproducing
 
 ```bash
