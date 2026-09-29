@@ -1,8 +1,12 @@
 # HA-RUnet: Hybrid Attention Residual 3D U-Net for Brain Tumor Segmentation
 
-A lightweight 3D U-Net for volumetric brain tumor segmentation on MRI. Residual blocks with
-**Squeeze-and-Excitation** (channel attention) extract features at every scale, and **attention gates**
-(spatial attention) filter the skip connections before they reach the decoder.
+A lightweight 3D U-Net for volumetric brain tumor segmentation on MRI (input 4 × 128³: FLAIR, T1, T2, T1ce).
+
+- **Residual blocks**: identity mapping + three pre-activation BN → ReLU → Conv units (bottleneck), in the
+  encoder (32 → 512 channels, 2×2×2 max-pooling, 4³ × 512 bottleneck) and decoder.
+- **Attention Modules 1–4** on the skip connections at 64³, 32³, 16³ and 8³: a *trunk branch* (two residual
+  blocks) is multiplied by a *soft mask* from an encoder–decoder branch, combined as (1 + M) · T.
+- **Squeeze-Excitation** after every decoder stage (and the bottleneck) re-weights channels using global context.
 
 ![HA-RUnet architecture](Figures/architecture.png)
 
@@ -15,7 +19,7 @@ A lightweight 3D U-Net for volumetric brain tumor segmentation on MRI. Residual 
 ```
 HA-RUnet/
 ├── Code/
-│   ├── model.py              # HA-RUnet: residual SE blocks + attention gates
+│   ├── model.py              # HA-RUnet: residual blocks, attention modules, SE; ablation switches
 │   ├── dataset.py            # BraTS-2020 loader (WT / TC / ET region masks)
 │   ├── losses.py             # Dice + BCE loss, Dice & sensitivity metrics
 │   ├── train.py              # training loop (AdamW, cosine LR, mixed precision)
@@ -34,7 +38,8 @@ HA-RUnet/
 ```bash
 cd Code
 pip install -r requirements.txt
-python model.py                                   # sanity check: shapes + parameter count
+python model.py                                   # parameter counts (ablations) + shape check
+python train.py --data ... --no-attention --no-se  # ablation: residual U-Net baseline
 python train.py --data ../Dataset/MICCAI_BraTS2020_TrainingData
 python evaluate.py --data ../Dataset/MICCAI_BraTS2020_TrainingData --checkpoint ../Results/run/best_model.pt
 ```

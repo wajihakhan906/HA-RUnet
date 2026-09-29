@@ -14,12 +14,14 @@ def main():
     ap.add_argument("--data", required=True)
     ap.add_argument("--checkpoint", required=True)
     ap.add_argument("--crop", type=int, nargs=3, default=[128, 128, 128])
-    ap.add_argument("--base", type=int, default=16)
+    ap.add_argument("--widths", type=int, nargs=5, default=[32, 64, 128, 256, 512])
+    ap.add_argument("--no-attention", action="store_true", help="ablation: residual U-Net without attention modules")
+    ap.add_argument("--no-se", action="store_true", help="ablation: without squeeze-excitation")
     ap.add_argument("--out", default="../Results/metrics.json")
     args = ap.parse_args()
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    model = HARUNet(base=args.base).to(device)
+    model = HARUNet(widths=tuple(args.widths), attention=not args.no_attention, se=not args.no_se).to(device)
     model.load_state_dict(torch.load(args.checkpoint, map_location=device))
     model.eval()
 
