@@ -24,6 +24,12 @@ A lightweight 3D U-Net for volumetric brain tumor segmentation on MRI (input 4 Ã
 
 ![Attention module](Figures/paper/attention_module.png)
 
+## Quantitative Results
+Distribution of (a) Dice coefficient and (b) Hausdorff95 for ET / TC / WT on the training and validation sets across
+the ablation models. Adding attention and then SE raises Dice and tightens both distributions:
+
+![Dice and Hausdorff95 box plots](Figures/paper/dice_hausdorff_boxplots.png)
+
 ## Qualitative Results
 Segmentations on BraTS-2020 (FLAIR, T1, T2, T1ce, ground truth, prediction) for the ablation models:
 (a) Residual U-Net, (b) + attention modules, (c) the proposed HA-RUnet (+ attention + SE):
