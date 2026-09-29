@@ -51,7 +51,7 @@ python evaluate.py --data ../Dataset/MICCAI_BraTS2020_TrainingData --checkpoint 
 
 ## Author
 **Wajiha Rahim Khan**  
-[Google Scholar](https://scholar.google.com/citations?user=ctvOkbYAAAAJ) · [Email](mailto:wajihakhan906@gmail.com)
+[Google Scholar](https://scholar.google.com/citations?user=ctvOkbYAAAAJ)
 
 ## License
 MIT. See [LICENSE](LICENSE).
